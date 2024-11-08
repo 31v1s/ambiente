@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿SAORY?</title>
+    <style>
+        /* Fondo y estilo general */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #625264, #000000); /* Fondo con degradado de colores suaves */
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Contenedor de texto */
+        .container {
+            text-align: center;
+        }
+
+        /* Animación para el texto */
+        .leFadeInLeft {
+            display: inline-block;
+            opacity: 0;
+            transform: translateX(-60px);
+            animation: leFadeInLeft 1s ease-out forwards;
+        }
+
+        @keyframes leFadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Estilo de los botones */
+        .buttons {
+            display: flex;
+            justify-content: space-around; /* Asegura la separación de los botones */
+            align-items: center;
+            margin-top: 20px;
+            width: 320px;
+            position: relative;
+            height: 60px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-si {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        .btn-no {
+            background-color: #f44336;
+            color: #fff;
+            position: relative; /* Cambiado de absolute a relative */
+        }
+
+        /* Animación de letras */
+        .btn-si,
+        .btn-no {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        /* Añadir el retraso para los botones */
+        .btn-si {
+            animation-delay: 0.5s;
+        }
+        .btn-no {
+            animation-delay: 0.7s;
+        }
+
+        /* Animación del fade-in */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Estilos para las letras de la pregunta */
+        h1 span {
+            color: #ffffff; /* Color blanco para las letras */
+            font-weight: bold;
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #33ffee, #ee8cbd); /* Degradado en las letras */
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-block;
+        }
+
+        /* Estilo del mensaje de éxito */
+        .mensaje {
+            display: none;
+            margin-top: 20px;
+            font-size: 2.5rem;
+            color: #33ffee;
+            font-weight: bold;
+            animation: fadeIn 2s ease-in-out, pulse 1s infinite alternate;
+        }
+
+        /* Animación de "pulse" para el mensaje */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Animación de expansión del botón */
+        @keyframes expandButton {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Lluvia de emojis */
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: rain 5s linear infinite;
+        }
+
+        @keyframes rain {
+            0% {
+                top: -20px;
+                opacity: 1;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span class="leFadeInLeft">¿Quieres</span>
+            <span class="leFadeInLeft">ser</span>
+            <span class="leFadeInLeft">mi</span>
+            <span class="leFadeInLeft">novia?</span>
+        </h1>
+        <div class="buttons">
+            <button class="btn btn-si" id="btnSi">Sí</button>
+            <button class="btn btn-no" id="btnNo">No</button>
+        </div>
+        <div class="mensaje" id="mensaje">
+            💖¡YYYYYY seras solo mia!💖
+        </div>
+    </div>
+
+    <!-- Audio de fondo -->
+    <audio id="audioFondo" src="mujer bonita.MP3" preload="auto"></audio>
+
+    <script>
+        const btnSi = document.getElementById("btnSi");
+        const btnNo = document.getElementById("btnNo");
+        const mensaje = document.getElementById("mensaje");
+        const audioFondo = document.getElementById("audioFondo");
+
+        // Función para mover el botón cuando el cursor pasa sobre él
+        btnNo.addEventListener("mouseenter", () => {
+            const maxX = window.innerWidth / 2 - btnNo.offsetWidth; // Rango más pequeño en el eje X
+            const maxY = window.innerHeight / 2 - btnNo.offsetHeight; // Rango más pequeño en el eje Y
+
+            const newX = Math.random() * maxX; // Movimiento aleatorio en el eje X
+            const newY = Math.random() * maxY; // Movimiento aleatorio en el eje Y
+
+            btnNo.style.left = `${newX}px`;
+            btnNo.style.top = `${newY}px`;
+        });
+
+        // Función para crear la lluvia de emojis
+        function lluviaEmojis() {
+            for (let i = 0; i < 20; i++) {
+                let emoji = document.createElement("div");
+                emoji.classList.add("emoji");
+                emoji.innerText = "🌸"; // Emoji de corazón
+                emoji.style.left = `${Math.random() * window.innerWidth}px`;
+                emoji.style.animationDuration = `${Math.random() * 2 + 3}s`; // Duración aleatoria para cada emoji
+                document.body.appendChild(emoji);
+            }
+        }
+
+        // Función cuando se hace clic en el "Sí"
+        btnSi.addEventListener("click", () => {
+            // Cambiar el color del botón y mostrar el mensaje
+            btnSi.style.backgroundColor = "#66bb6a"; // Un verde más claro
+            btnSi.innerHTML = "¡Sí! 😍"; // Cambiar el texto del botón
+            mensaje.style.display = "block"; // Mostrar el mensaje
+            mensaje.style.animation = "fadeIn 2s ease-in-out, pulse 1s infinite alternate"; // Animar el mensaje
+            btnSi.style.animation = "expandButton 0.6s ease-out"; // Expansión del botón "Sí"
+            lluviaEmojis(); // Iniciar la lluvia de emojis
+            audioFondo.play(); // Reproducir la canción de fondo
+        });
+    </script>
+</body>
+</html>
